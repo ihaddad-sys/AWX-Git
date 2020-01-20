@@ -1,0 +1,10 @@
+---
+- name: Send notifications on all Windows hosts.
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Notification send
+      win_msg:
+        msg: Ansible notification!
+        display_seconds: 30

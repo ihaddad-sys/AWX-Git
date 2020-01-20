@@ -1,0 +1,25 @@
+---
+- hosts : localhost
+  gather_facts: no
+  vars:
+    vcenter_server: "192.168.146.153"
+    vcenter_user: "root"
+    vcenter_pass: "rootroot2"
+    datacenter_name: "Main_DC"
+    cluster_name: "Main_Cluster"
+  tasks:
+  - name: Clone Template
+    vmware_guest:
+      hostname: "{{ vcenter_server }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pass }}"
+      validate_certs: False
+      name: ansitest
+      template: template-debian
+      datacenter: "{{ datacenter_name }}"
+      folder: /{{datacenter_name}}/vm
+      cluster: "{{ cluster_name }}"
+      datastore: "datastore1"
+      networks:
+      - name: VM Network
+    delegate_to: localhost
